@@ -5,7 +5,9 @@
     </div>
     <div class="card__actions">
       <button
-        class="card__actions--edit">
+        class="card__actions--edit"
+        (click)="handleClickEdit()"
+      >
         <img
           class="card__actions--img"
           [ngSrc]="'assets/edit.png'"
@@ -14,7 +16,9 @@
           alt="" />
       </button>
       <button
-        class="card__actions--delete">
+        class="card__actions--delete"
+        (click)="handleClickDelete()"
+      >
         <img
           class="card__actions--img"
           [ngSrc]="'assets/trash.png'"

@@ -1,0 +1,70 @@
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 class="modal-header__title">{{ heroData ? 'Edit Superhero' : 'Add New Superhero' }}</h2>
+      <button (click)="handleCloseModal()" class="close-button">✕</button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="heroForm" class="form-content">
+      <div class="form-grid">
+        <div>
+          <label for="name">Superhero Name *</label>
+          <input type="text" id="name" name="name" formControlName="nome" required />
+        </div>
+
+        <div>
+          <label for="heroName">Real Name *</label>
+          <input type="text" id="heroName" name="heroName" formControlName="nomeHeroi" required />
+        </div>
+      </div>
+
+      <div class="powers-container">
+        <label for="powers">Superpowers *</label>
+        <div class="powers-container">
+          <div class="tag-container">
+            <div class="tag" *ngFor="let power of selectedPowers">
+              {{ power.nome }}
+              <button class="tag__button" type="button" (click)="removePower(power)">×</button>
+            </div>
+          </div>
+          <input
+            type="text"
+            id="powers"
+            [formControl]="powerInput"
+            (keydown)="addPowerFromInput($event)"
+            (focusin)="onFocusInput()"
+            placeholder="Type and press Enter or select..."
+          />
+        </div>
+        <ul class="suggestions" *ngIf="showSuggestions && filteredPowers.length">
+          <li
+            *ngFor="let power of filteredPowers"
+            (click)="selectFromDropdown(power)"
+            (keyup)="selectFromDropdown(power)"
+          >
+            {{ power.nome }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <label for="weight">Peso *</label>
+        <input type="text" name="weight" id="weight" formControlName="peso" required rows="4" />
+      </div>
+
+      <div>
+        <label for="height">Altura *</label>
+        <input type="text" name="height" id="height" formControlName="altura" required rows="4" />
+      </div>
+
+
+      <div class="form-buttons">
+        <button type="button" (click)="handleCloseModal()">Cancel</button>
+        <button type="submit">
+          {{ heroData ? 'Update Superhero' : 'Add Superhero' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

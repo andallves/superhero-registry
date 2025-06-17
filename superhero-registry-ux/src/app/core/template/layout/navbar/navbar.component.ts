@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
@@ -11,5 +11,9 @@ import {NgOptimizedImage} from "@angular/common";
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  @Output('addButtonClicked') addButtonClicked: EventEmitter<void> = new EventEmitter();
 
+  handleButtonClick() {
+    this.addButtonClicked.emit();
+  }
 }

@@ -1,8 +1,22 @@
 <main class="main">
-  <app-navbar></app-navbar>
+  <app-navbar (addButtonClicked)="addButtonClick()"></app-navbar>
   <app-filter></app-filter>
-
+  <app-result [totalSuperHeroes]="heroes.length"></app-result>
   <div class="cards-container">
-    <app-heroi-card></app-heroi-card>
+    @for (hero of heroes; track $index) {
+      <app-hero-card
+        [hero]="hero"
+        (deleteHeroClicked)="deleteButtonClick(hero)"
+        (editHeroClicked)="editButtonClick(hero)"
+      ></app-hero-card>
+    } @empty {
+       <p>Não herói encontrado.</p>
+    }
   </div>
+  <app-hero-modal
+    [showModal]="showModal"
+    [heroData]="editingHero"
+    (closeModal)="handleCloseModal()"
+    (saveHero)="handleSave($event)">
+  </app-hero-modal>
 </main>

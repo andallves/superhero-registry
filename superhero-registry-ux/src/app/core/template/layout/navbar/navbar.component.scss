@@ -1,3 +1,5 @@
+@import "variables";
+
 .navbar {
   width: 100%;
   padding: 2rem;
@@ -52,19 +54,20 @@
   }
 
   &__button {
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     background: $primaryColor;
     color: $whiteColor;
     border-radius: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     box-shadow: 0 0 0.1rem 0.1rem rgba(0,0,0,0.1);
     cursor: pointer;
 
     &--icon {
-      width: 2rem;
-      height: 2rem;
+      width: 1.6rem;
+      height: 1.6rem;
     }
 
     &--text {
