@@ -1,0 +1,79 @@
+.navbar {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  background-color: $whiteColor;
+
+  &__brand-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__brand-image-wrapper {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background: $primaryColor;
+    box-shadow: 0 0 1rem 0.4rem rgba(0,0,0,0.4) inset;
+
+    &--image {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+
+  &__brand-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    &--title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $blackColor;
+    }
+
+    &--subtitle {
+      font-size: 1.4rem;
+      color: $grayColor;
+    }
+  }
+
+  &__button {
+    padding: 1rem 2rem;
+    background: $primaryColor;
+    color: $whiteColor;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0.1rem 0.1rem rgba(0,0,0,0.1);
+    cursor: pointer;
+
+    &--icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &--text {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+}

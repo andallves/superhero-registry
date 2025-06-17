@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card__header">
+    <div class="card__id-wrapper">
+      <span class="card__id-wrapper id">ID: 1</span>
+    </div>
+    <div class="card__actions">
+      <button
+        class="card__actions--edit">
+        <img
+          class="card__actions--img"
+          [ngSrc]="'assets/edit.png'"
+          width="10"
+          height="10"
+          alt="" />
+      </button>
+      <button
+        class="card__actions--delete">
+        <img
+          class="card__actions--img"
+          [ngSrc]="'assets/trash.png'"
+          width="10"
+          height="10"
+          alt="" />
+      </button>
+    </div>
+    <img
+      class="card__icon"
+      [ngSrc]="'assets/shield.png'"
+      width="40"
+      height="40"
+      alt=""
+    />
+  </div>
+  <div class="card__content">
+    <div class="card__title-container">
+      <h3 class="card__title-container title">Superman</h3>
+      <div class="card__title-container subtitle-container">
+        <img
+          class="card__profile"
+          [ngSrc]="'assets/profile.png'"
+          width="20"
+          height="20"
+          alt=""
+        />
+        <span class="text">Clark Kent</span>
+      </div>
+    </div>
+    <p class="card__description">The Man of Steel, protector of Metropolis and Earth.</p>
+    <div class="card__powers">
+      <span class="card__powers--title">Poderes</span>
+      <div class="card__powers--container">
+        <span class="card__powers--item">Super Strength</span>
+        <span class="card__powers--item">Flight</span>
+      </div>
+    </div>
+  </div>
+</div>

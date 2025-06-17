@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <div class="navbar__brand-content">
+    <div class="navbar__brand-image-wrapper">
+      <img
+        class="navbar__brand-image-wrapper--image"
+        [ngSrc]="'assets/shield.png'"
+        width="30"
+        height="30"
+        alt="" />
+    </div>
+    <div class="navbar__brand-text-wrapper">
+      <h1 class="navbar__brand-text-wrapper--title">Superhero Registry</h1>
+      <span class="navbar__brand-text-wrapper--subtitle">Manage your superhero database</span>
+    </div>
+  </div>
+  <button
+    class="navbar__button"
+    (click)="addHeroButton()"
+  >
+    <img
+      class="navbar__button--icon"
+      [ngSrc]="'assets/plus.png'"
+      width="30"
+      height="30"
+      alt=""
+    >
+    <span class="navbar__button--text">Add Superhero</span>
+  </button>
+</nav>

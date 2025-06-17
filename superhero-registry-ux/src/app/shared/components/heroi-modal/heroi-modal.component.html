@@ -1,0 +1,24 @@
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <h2>{{ heroData ? 'Editar Herói' : 'Adicionar Herói' }}</h2>
+    <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+      <label>Nome</label>
+      <input formControlName="name" placeholder="Nome do herói" />
+
+      <label>Alter Ego</label>
+      <input formControlName="alterEgo" placeholder="Ex: Clark Kent" />
+
+      <label>Descrição</label>
+      <textarea formControlName="description" placeholder="Descrição"></textarea>
+
+      <label>Poderes (separados por vírgula)</label>
+      <input formControlName="powers" placeholder="Ex: Super Força, Voo" />
+
+      <div class="modal__actions">
+        <button type="submit">Salvar</button>
+        <button type="button" (click)="closeModal.emit()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
