@@ -5,30 +5,28 @@ using SuperHero.Infra.Context;
 using SuperHero.Infra.Database;
 using SuperHero.Infra.Extensions;
 
-namespace SuperHero.Application.Queries.Heroi;
+namespace SuperHero.Application.Queries.SuperPoder;
 
-public class BuscarHeroisQueryHandler: IRequestHandler<BuscarHeroisQuery, PagedResult<HeroiDto>>
+public class BuscarSuperPoderesQueryHandler : IRequestHandler<BuscarSuperPoderesQuery, PagedResult<SuperPoderDto>>
 {
     private readonly IRepository<SuperHeroDbContext> _repository;
     
-    public BuscarHeroisQueryHandler(IRepository<SuperHeroDbContext> repository)
+    public BuscarSuperPoderesQueryHandler(IRepository<SuperHeroDbContext> repository)
     {
         _repository = repository;
     }
 
-    public async Task<PagedResult<HeroiDto>> Handle(BuscarHeroisQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<SuperPoderDto>> Handle(BuscarSuperPoderesQuery request, CancellationToken cancellationToken)
     {
         var paged = await _repository
-            .GetQueryable<Domain.Entities.Hero.Heroi>()
+            .GetQueryable<Domain.Entities.Hero.SuperPoder>()
             .AplicarFiltro(request)
             .AplicarOrdenacao(request)
-            .Select(x => new HeroiDto
+            .Select(x => new SuperPoderDto
             {
                 Id = x.Id,
                 Nome = x.Nome,
-                NomeHeroi = x.NomeHeroi,
-                Altura = x.Altura,
-                Peso = x.Peso,
+                Descricao = x.Descricao,
             })
             .PagedAsync(request, cancellationToken);
         

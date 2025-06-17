@@ -4,7 +4,7 @@ using SuperHero.Domain.ValueObjects;
 
 namespace SuperHero.Application.Queries.Heroi;
 
-public class BuscarHeroisQuery: BasePagedQuery<Domain.Entities.Hero.Heroi, HeroiDto>
+public class BuscarHeroisQuery : BasePagedQuery<Domain.Entities.Hero.Heroi, HeroiDto>
 {
     public string? Nome { get; set; }
     public string? NomeHeroi { get; set; }

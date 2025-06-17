@@ -2,13 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5AA379C3-CD42-45D5-8B04-508FD8F01CF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.Application", "SuperHero.Application\SuperHero.Application.csproj", "{E21F3AB0-3F1C-42C3-8642-375DA4C2460B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.Application", "src\SuperHero.Application\SuperHero.Application.csproj", "{E21F3AB0-3F1C-42C3-8642-375DA4C2460B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.API", "SuperHero.API\SuperHero.API.csproj", "{F8B01FEA-54CA-450B-BC04-2B8180AFFD11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.API", "src\SuperHero.API\SuperHero.API.csproj", "{F8B01FEA-54CA-450B-BC04-2B8180AFFD11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.Domain", "SuperHero.Domain\SuperHero.Domain.csproj", "{8867AF56-FEEB-43E7-A242-3E4256833326}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.Domain", "src\SuperHero.Domain\SuperHero.Domain.csproj", "{8867AF56-FEEB-43E7-A242-3E4256833326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.Infra", "SuperHero.Infra\SuperHero.Infra.csproj", "{CD17ACCF-FC89-4F9C-9BE1-B231534BE5C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.Infra", "src\SuperHero.Infra\SuperHero.Infra.csproj", "{CD17ACCF-FC89-4F9C-9BE1-B231534BE5C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

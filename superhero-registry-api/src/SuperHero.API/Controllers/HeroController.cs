@@ -14,7 +14,7 @@ public class HeroController(IMediator mediator) : BaseController(mediator)
 {
     [HttpGet]
     [MapToApiVersion("1.0")]
-    [SwaggerOperation(Summary = "Obtem um heroi existente", Tags = ["Heroi"])]
+    [SwaggerOperation(Summary = "Busca herois existentes", Tags = ["Heroi"])]
     [ProducesResponseType(typeof(PagedResult<HeroiDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async ValueTask<IActionResult> Obter([FromQuery] BuscarHeroisQuery query, CancellationToken cancellationToken)
