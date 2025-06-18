@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace SuperHero.API.Controllers;
 
 [ApiVersion("1.0")]
-[Route("v{version:apiVersion}/[controller]")]
+[Route("v{version:apiVersion}/heroi")]
 public class HeroController(IMediator mediator) : BaseController(mediator)
 {
     [HttpGet]
@@ -49,7 +49,7 @@ public class HeroController(IMediator mediator) : BaseController(mediator)
     [ProducesResponseType(typeof(HeroiDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async ValueTask<IActionResult> Atualizar([FromRoute] int id, [FromForm] AlterarHeroiCommand command, CancellationToken cancellationToken)
+    public async ValueTask<IActionResult> Atualizar([FromRoute] int id, [FromBody] AlterarHeroiCommand command, CancellationToken cancellationToken)
     {
         if (id != command.Id)
         {
@@ -58,7 +58,7 @@ public class HeroController(IMediator mediator) : BaseController(mediator)
         return await SendCommandAsync(command, cancellationToken);
     }
     
-    [HttpDelete("delete/{id:int}")]
+    [HttpDelete("desativar/{id:int}")]
     [MapToApiVersion("1.0")]
     [SwaggerOperation(Summary = "Arquiva um heroi existente", Tags = ["Heroi"])]
     [ProducesResponseType(typeof(HeroiDto), StatusCodes.Status200OK)]

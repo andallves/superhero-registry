@@ -19,7 +19,7 @@ import {Response} from '../../../core/types/response';
   styleUrl: './hero-modal.component.scss'
 })
 export class HeroModalComponent {
-  @Input() showModal = true;
+  @Input() showModal = false;
   @Input() heroData: Superhero | null = null;
   @Input() isLoading: boolean = false;
   @Input() allPowers: Superpoder[] = [];
@@ -36,6 +36,7 @@ export class HeroModalComponent {
 
   constructor(private readonly fb: FormBuilder, private readonly superpowerService: SuperpowerService) {
     this.heroForm = this.fb.group({
+      id: [''],
       nome: ['', Validators.required],
       nomeHeroi: ['', Validators.required],
       heroisSuperPoderes: [[], Validators.required],
@@ -50,7 +51,7 @@ export class HeroModalComponent {
       if (value) {
         const input = value.toLowerCase();
         this.filteredPowers = this.allPowers.filter(p =>
-          p.nome.toLowerCase().includes(input) && !this.selectedPowers.includes(p)
+          p.nome.toLowerCase().includes(input) && !this.selectedPowers.some(sp => sp.id === p.id)
         );
         this.showSuggestions = true;
       } else {
@@ -61,16 +62,20 @@ export class HeroModalComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['heroData']) {
-      if (this.heroData) {
-        this.heroForm.patchValue(this.heroData);
-        this.selectedPowers = (this.heroData.heroisSuperPoderes || [])
-          .map(hsp => this.allPowers.find(p => p.id === hsp.superPoderId))
-          .filter((p): p is Superpoder => !!p);
-      } else {
-        this.heroForm.reset();
-        this.selectedPowers = [];
-      }
+    if (changes['heroData'] && this.heroData) {
+      this.heroForm.patchValue(this.heroData);
+      const initialSelectedPowers = (this.heroData.heroisSuperPoderes || [])
+        .map(hsp => this.allPowers.find(p => p.id === hsp.superPoderId))
+        .filter((p): p is Superpoder => !!p);
+
+      // Garante que os poderes iniciais sejam únicos
+      this.selectedPowers = Array.from(new Set(initialSelectedPowers.map(p => p.id)))
+        .map(id => initialSelectedPowers.find(p => p.id === id)!)
+        .filter((p): p is Superpoder => !!p); // Adicionado para garantir que o tipo seja Superpoder
+
+    } else if (changes['heroData'] && !this.heroData) { // Adicionando condição para quando heroData se torna null
+      this.heroForm.reset();
+      this.selectedPowers = [];
     }
   }
 
@@ -95,7 +100,7 @@ export class HeroModalComponent {
   }
 
   onFocusInput() {
-    this.filteredPowers = this.allPowers.filter(p => !this.selectedPowers.includes(p));
+    this.filteredPowers = this.allPowers.filter(p => !this.selectedPowers.some(sp => sp.id === p.id));
     this.showSuggestions = true;
   }
 

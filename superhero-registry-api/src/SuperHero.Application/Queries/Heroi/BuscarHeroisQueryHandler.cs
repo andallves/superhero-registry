@@ -21,6 +21,7 @@ public class BuscarHeroisQueryHandler : IRequestHandler<BuscarHeroisQuery, Paged
     {
         var paged = await _repository
             .GetQueryable<Domain.Entities.Hero.Heroi>()
+            .Where(x => !x.Desativado)
             .Include(x => x.HeroisSuperPoderes)
             .AplicarFiltro(request)
             .AplicarOrdenacao(request)

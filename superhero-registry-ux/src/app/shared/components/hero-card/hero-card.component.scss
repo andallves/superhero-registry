@@ -79,6 +79,11 @@
     padding: 2rem;
   }
 
+  &__content-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__title-container {
     display: flex;
     flex-direction: column;
@@ -101,9 +106,24 @@
     }
   }
 
-  &__description {
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
     font-size: 1.4rem;
     color: #414141;
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
   }
 
   &__powers {

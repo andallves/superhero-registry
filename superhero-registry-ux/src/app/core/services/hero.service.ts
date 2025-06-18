@@ -15,29 +15,26 @@ export class HeroService {
 
   saveHero(heroData: Superhero): Observable<Superhero> {
     return this.httpClient.post<Superhero>(
-      `${this.apiUrl}/hero`,
+      `${this.apiUrl}/heroi`,
       heroData
     );
   }
 
   getAllHeroes(): Observable<Response<Superhero>> {
-    return this.httpClient.get<Response<Superhero>>(`${this.apiUrl}/hero`);
+    return this.httpClient.get<Response<Superhero>>(`${this.apiUrl}/heroi`);
   }
 
   updateHero(
-    customerId: number,
+    heroId: number,
     heroData: Partial<Superhero>
   ): Observable<Superhero> {
     return this.httpClient.put<Superhero>(
-      `${this.apiUrl}/hero/${customerId}`,
+      `${this.apiUrl}/heroi/${heroId}`,
       heroData
     );
   }
 
-  removeHero(customerId: number): Observable<Superhero> {
-    return this.httpClient.patch<Superhero>(
-      `${this.apiUrl}/hero/desativar/${customerId}`,
-      customerId
-    );
+  deleteHero(heroId: number): Observable<Superhero> {
+    return this.httpClient.delete<Superhero>(`${this.apiUrl}/heroi/desativar/${heroId}`);
   }
 }

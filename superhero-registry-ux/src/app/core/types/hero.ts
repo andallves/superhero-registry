@@ -20,6 +20,7 @@ export interface Superpoder {
 }
 
 export interface SuperheroForm {
+  id?: number;
   nome: string;
   nomeHeroi: string;
   heroisSuperPoderes: Superpoder[];

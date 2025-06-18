@@ -26,7 +26,7 @@ public class AlterarHeroiCommandHandler: IRequestHandler<AlterarHeroiCommand, Cu
         _repository.DbSet<Domain.Entities.Hero.Heroi>().Update(hero);
     
         return await _repository.SaveChangesAsync(cancellationToken) > 0
-            ? CustomResult<HeroiDto>.SuccessResult(_mapper.Map<HeroiDto>(hero), "Heroi cadastrado com sucesso!")
-            : CustomResult<HeroiDto>.ErrorResult("Erro ao criar o curso.", errorType: EResultErrorType.ServerError);  
+            ? CustomResult<HeroiDto>.SuccessResult(_mapper.Map<HeroiDto>(hero), "Alterações salva com sucesso!")
+            : CustomResult<HeroiDto>.ErrorResult("Erro ao atualizar o herói.", errorType: EResultErrorType.ServerError);  
     }
 }

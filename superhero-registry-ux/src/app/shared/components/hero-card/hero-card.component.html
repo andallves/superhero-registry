@@ -6,7 +6,7 @@
     <div class="card__actions">
       <button
         class="card__actions--edit"
-        (click)="handleClickEdit()"
+        (click)="handleClickEdit(hero.id)"
       >
         <img
           class="card__actions--img"
@@ -17,7 +17,7 @@
       </button>
       <button
         class="card__actions--delete"
-        (click)="handleClickDelete()"
+        (click)="handleClickDelete(hero.id)"
       >
         <img
           class="card__actions--img"
@@ -36,17 +36,29 @@
     />
   </div>
   <div class="card__content">
-    <div class="card__title-container">
-      <h3 class="card__title-container title">{{ hero.nome }}</h3>
-      <div class="card__title-container subtitle-container">
-        <img
-          class="card__profile"
-          [ngSrc]="'assets/profile.png'"
-          width="20"
-          height="20"
-          alt=""
-        />
-        <span class="text">{{ hero.nomeHeroi }}</span>
+    <div class="card__content-wrapper">
+      <div class="card__title-container">
+        <h3 class="card__title-container title">{{ hero.nome }}</h3>
+        <div class="card__title-container subtitle-container">
+          <img
+            class="card__profile"
+            [ngSrc]="'assets/profile.png'"
+            width="20"
+            height="20"
+            alt=""
+          />
+          <span class="text">{{ hero.nomeHeroi }}</span>
+        </div>
+      </div>
+      <div class="card__info">
+        <div class="card__info--container">
+          <h2>Altura</h2>
+          <span>{{ hero.altura }}</span>
+        </div>
+        <div class="card__info--container">
+          <h2>Peso</h2>
+          <span>{{ hero.peso }}</span>
+        </div>
       </div>
     </div>
 

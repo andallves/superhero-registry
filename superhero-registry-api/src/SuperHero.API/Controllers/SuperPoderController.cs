@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace SuperHero.API.Controllers;
 
 [ApiVersion("1.0")]
-[Route("v{version:apiVersion}/[controller]")]
+[Route("v{version:apiVersion}/super-poder")]
 public class SuperPoderController(IMediator mediator) : BaseController(mediator)
 {
     [HttpGet]

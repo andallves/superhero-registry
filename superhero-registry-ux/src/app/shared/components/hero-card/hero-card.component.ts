@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgForOf, NgOptimizedImage} from '@angular/common';
 import {Superhero, Superpoder} from '../../../core/types/hero';
 import {SuperpoderNomePipe} from '../../../core/pipes/superpoder-nome.pipe';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-hero-card',
@@ -9,7 +10,8 @@ import {SuperpoderNomePipe} from '../../../core/pipes/superpoder-nome.pipe';
   imports: [
     NgOptimizedImage,
     NgForOf,
-    SuperpoderNomePipe
+    SuperpoderNomePipe,
+    SweetAlert2Module,
   ],
   templateUrl: './hero-card.component.html',
   styleUrl: './hero-card.component.scss'
@@ -17,14 +19,14 @@ import {SuperpoderNomePipe} from '../../../core/pipes/superpoder-nome.pipe';
 export class HeroCardComponent {
   @Input({ alias: 'hero', required: true }) hero!: Superhero;
   @Input() allPowers: Superpoder[] = [];
-  @Output('deleteHeroClicked') deleteHeroClicked = new EventEmitter();
-  @Output('editHeroClicked') editHeroClicked = new EventEmitter();
+  @Output('deleteHeroClicked') deleteHeroClicked = new EventEmitter<number>();
+  @Output('editHeroClicked') editHeroClicked = new EventEmitter<number>();
 
-  handleClickEdit() {
-    this.editHeroClicked.emit();
+  handleClickEdit(id: number) {
+    this.editHeroClicked.emit(id);
   }
 
-  handleClickDelete() {
-    this.deleteHeroClicked.emit();
+  handleClickDelete(id: number) {
+    this.deleteHeroClicked.emit(id);
   }
 }

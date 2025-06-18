@@ -18,6 +18,13 @@ public class HeroisSuperPoderesResolver : IValueResolver<AlterarHeroiCommand, He
         var heroisSuperPoderes = destMember.ToList();
         foreach (var heroiSuperPoder in source.HeroisSuperPoderes)
         {
+            bool jaExiste = heroisSuperPoderes.Any(hsp =>
+                hsp.SuperPoderId == heroiSuperPoder.SuperPoderId &&
+                (heroiSuperPoder.Id == 0 || hsp.Id != 0));
+            
+            if (jaExiste)
+                continue;
+            
             if (heroiSuperPoder.Id is 0)
             {
                 heroisSuperPoderes.Add( _mapper.Map<HeroiSuperPoder>(heroiSuperPoder));

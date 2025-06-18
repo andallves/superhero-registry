@@ -7,11 +7,11 @@
       <app-hero-card
         [hero]="hero"
         [allPowers]="allPowers"
-        (deleteHeroClicked)="deleteButtonClick(hero)"
+        (deleteHeroClicked)="handleDelete(hero.id)"
         (editHeroClicked)="editButtonClick(hero)"
       ></app-hero-card>
     } @empty {
-       <p>Não herói encontrado.</p>
+       <app-loading [large]="true"></app-loading>
     }
   </div>
   <app-hero-modal
