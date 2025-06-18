@@ -23,8 +23,9 @@ public class ObterHeroiPorIdQueryHandler: IRequestHandler<ObterHeroiPorIdQuery, 
     {
         var heroi = await _repository
             .GetQueryable<Domain.Entities.Hero.Heroi>()
+            .Include(h => h.HeroisSuperPoderes)
             .AsNoTrackingWithIdentityResolution()
-            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            .FirstOrDefaultAsync(x => x.Id == request.Id && !x.Desativado, cancellationToken);
         
         return heroi == null
             ? CustomResult<HeroiDto>.ErrorResult("Heroi não encontrado", errorType: EResultErrorType.NotFound)

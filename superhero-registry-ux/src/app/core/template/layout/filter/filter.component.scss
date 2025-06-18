@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 
   &__input {
     width: 90%;
@@ -24,6 +25,25 @@
 
     &:focus {
       outline: .2rem solid $primaryColor;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.01);
+    }
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    span {
+      font-size: 2rem;
+      font-weight: 400;
     }
   }
 }

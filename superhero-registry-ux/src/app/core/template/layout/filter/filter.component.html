@@ -3,5 +3,13 @@
     class="filter__input"
     name="filter-input"
     id="filter-input"
-    placeholder="Procurar por ID" />
+    placeholder="Procurar por ID"
+    [(ngModel)]="filterId"
+    (keyup.enter)="onSearch()" />
+  <button (click)="onSearch()">
+    <img [ngSrc]="'assets/search.png'" width="20" height="20" alt="botão de buscar" />
+  </button>
+  <button (click)="onClear()" *ngIf="showClearButton">
+    <span>x</span>
+  </button>
 </div>

@@ -35,7 +35,7 @@ export class AppComponent {
     this.getAllHeroes();
   }
 
-  private getAllHeroes(): void {
+  getAllHeroes(): void {
     this.heroService.getAllHeroes().subscribe({
       next: (data: Response<Superhero>) => {
         console.log(data.resultado)
@@ -165,6 +165,24 @@ export class AppComponent {
         })
       }
     })
+  }
+
+  handleSearchById(id: number) {
+    if (!id) return;
+    console.log(id);
+    this.heroService.getById(id).subscribe({
+      next: (hero) => {
+        this.heroes = [hero];
+      },
+      error: (erro) => {
+        console.log(erro)
+        Swal.fire({
+          icon: "error",
+          title: 'Ops',
+          text: 'Heroi não encontrado.',
+        })
+      }
+    });
   }
 
   handleCloseModal() {

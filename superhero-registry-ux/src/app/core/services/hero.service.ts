@@ -24,6 +24,10 @@ export class HeroService {
     return this.httpClient.get<Response<Superhero>>(`${this.apiUrl}/heroi`);
   }
 
+  getById(id: number): Observable<Superhero> {
+    return this.httpClient.get<Superhero>(`${this.apiUrl}/heroi/${id}`);
+  }
+
   updateHero(
     heroId: number,
     heroData: Partial<Superhero>

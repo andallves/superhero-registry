@@ -1,6 +1,9 @@
 <main class="main">
   <app-navbar (addButtonClicked)="addButtonClick()"></app-navbar>
-  <app-filter></app-filter>
+  <app-filter
+    (searchById)="handleSearchById($event)"
+    (clearFilter)="getAllHeroes()"
+  ></app-filter>
   <app-result [totalSuperHeroes]="heroes.length"></app-result>
 
   @if (!isLoading) {
