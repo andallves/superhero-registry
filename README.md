@@ -170,8 +170,13 @@ src/
    ```bash
    git clone https://github.com/andallves/superhero-registry.git
    cd superher-registry/superhero-registry-api
-
-2. Execute o projeto localmente:
+   
+2. Configure o banco:
+   ```bash
+    Vá na camada de API, no UserSecrets e adicione
+    "ConnectionStrings:POSTGRES": "Host=localhost;Port=5432;Database=SeuBanco;Username=postgres;Password=SuaSenha"
+   
+3. Execute o projeto localmente:
    ```bash
     dotnet run
     Acesse no navegador: http://localhost:5177
