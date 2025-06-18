@@ -17,10 +17,10 @@ public class HeroiProfile: Profile
             .ReverseMap();
         
         CreateMap<CadastrarHeroiCommand, Heroi>();
-        CreateMap<AlterarHeroiCommand, Heroi>();
-            // .ForMember(dest
-            //     => dest.HeroisSuperPoderes, opt
-            //     => opt.MapFrom<HeroisSuperPoderesResolver>());
+        CreateMap<AlterarHeroiCommand, Heroi>()
+            .ForMember(dest
+                => dest.HeroisSuperPoderes, opt
+                => opt.MapFrom<HeroisSuperPoderesResolver>());
     }
 }
 

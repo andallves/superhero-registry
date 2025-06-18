@@ -12,30 +12,37 @@ public class HeroisSuperPoderesResolver : IValueResolver<AlterarHeroiCommand, He
     {
         _mapper = mapper;
     }
-    
-    public List<HeroiSuperPoder> Resolve(AlterarHeroiCommand source, Heroi destination, List<HeroiSuperPoder> destMember, ResolutionContext context)
+
+    public List<HeroiSuperPoder> Resolve(AlterarHeroiCommand source, Heroi destination,
+        List<HeroiSuperPoder> destMember, ResolutionContext context)
     {
         var heroisSuperPoderes = destMember.ToList();
-        foreach (var heroiSuperPoder in source.HeroisSuperPoderes)
+
+        // Remove possíveis duplicações no próprio comando recebido
+        var poderesUnicos = source.HeroisSuperPoderes
+            .GroupBy(p => p.SuperPoderId)
+            .Select(g => g.First());
+
+        foreach (var heroiSuperPoder in poderesUnicos)
         {
-            bool jaExiste = heroisSuperPoderes.Any(hsp =>
-                hsp.SuperPoderId == heroiSuperPoder.SuperPoderId &&
-                (heroiSuperPoder.Id == 0 || hsp.Id != 0));
-            
+            // Já existe na lista? Ignora!
+            bool jaExiste = heroisSuperPoderes.Any(hsp => hsp.SuperPoderId == heroiSuperPoder.SuperPoderId);
+
             if (jaExiste)
                 continue;
-            
-            if (heroiSuperPoder.Id is 0)
-            {
-                heroisSuperPoderes.Add( _mapper.Map<HeroiSuperPoder>(heroiSuperPoder));
-                continue;
-            }
 
-            var existente = heroisSuperPoderes.FirstOrDefault(c => c!.Id == heroiSuperPoder.Id, null);
-            if (existente == null) 
-                continue;
-            
-            _mapper.Map(heroiSuperPoder, existente);
+            if (heroiSuperPoder.Id == 0)
+            {
+                // Novo poder: adiciona mapeado
+                heroisSuperPoderes.Add(_mapper.Map<HeroiSuperPoder>(heroiSuperPoder));
+            }
+            else
+            {
+                // Poder existente: atualiza se encontrado
+                var existente = heroisSuperPoderes.FirstOrDefault(c => c.Id == heroiSuperPoder.Id);
+                if (existente != null)
+                    _mapper.Map(heroiSuperPoder, existente);
+            }
         }
 
         return heroisSuperPoderes;

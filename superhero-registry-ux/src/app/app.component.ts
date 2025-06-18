@@ -23,11 +23,13 @@ import {LoadingComponent} from './shared/components/loading/loading.component';
 export class AppComponent {
   showModal = false;
   isLoading = false;
-  editingHero: any = null;
+  editingHero: Superhero | null = null;
   heroes: Superhero[] = [];
   allPowers: Superpoder[] = [];
 
-  constructor(private readonly heroService: HeroService, private readonly superpowerService: SuperpowerService) {}
+  constructor(private readonly heroService: HeroService, private readonly superpowerService: SuperpowerService) {
+    this.isLoading = true;
+  }
 
   ngOnInit(): void {
     this.getAllHeroes();
@@ -36,10 +38,14 @@ export class AppComponent {
   private getAllHeroes(): void {
     this.heroService.getAllHeroes().subscribe({
       next: (data: Response<Superhero>) => {
+        console.log(data.resultado)
         this.heroes = data.resultado;
       },
       error: (erro) => console.log(erro),
+      complete: () => this.isLoading = false,
     });
+
+    this.isLoading = false;
 
     this.superpowerService.getAllSuperpowers().subscribe({
       next: (data: Response<Superpoder>) => {
@@ -73,7 +79,6 @@ export class AppComponent {
       if (response.isConfirmed) {
         this.heroService.saveHero(hero).subscribe({
           next: () => {
-            this.isLoading = false;
             Swal.fire('Criado!', 'Herói criado com sucesso!', 'success');
             this.getAllHeroes();
           },
@@ -105,10 +110,8 @@ export class AppComponent {
       focusConfirm: true
     }).then((response) => {
       if (response.isConfirmed) {
-          console.log("id: ", hero);
         this.heroService.updateHero(hero.id, hero).subscribe({
           next: () => {
-            this.isLoading = false;
             Swal.fire('Atualizado!', 'Herói atualizado com sucesso!', 'success');
             this.getAllHeroes();
           },
@@ -141,11 +144,9 @@ export class AppComponent {
       cancelButtonText: 'Cancelar',
       focusConfirm: true
     }).then((response) => {
-      console.log("id: ", id);
       if (response.isConfirmed) {
         this.heroService.deleteHero(id).subscribe({
           next: () => {
-            this.isLoading = false;
             Swal.fire('Excluído!', 'Herói excluído com sucesso.', 'success');
             this.heroes = this.heroes.filter(hero => hero.id != id);
           },

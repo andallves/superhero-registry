@@ -2,18 +2,25 @@
   <app-navbar (addButtonClicked)="addButtonClick()"></app-navbar>
   <app-filter></app-filter>
   <app-result [totalSuperHeroes]="heroes.length"></app-result>
-  <div class="cards-container">
-    @for (hero of heroes; track $index) {
-      <app-hero-card
-        [hero]="hero"
-        [allPowers]="allPowers"
-        (deleteHeroClicked)="handleDelete(hero.id)"
-        (editHeroClicked)="editButtonClick(hero)"
-      ></app-hero-card>
-    } @empty {
-       <app-loading [large]="true"></app-loading>
-    }
-  </div>
+
+  @if (!isLoading) {
+    <div class="cards-container">
+      @for (hero of heroes; track $index) {
+        <app-hero-card
+          [hero]="hero"
+          [allPowers]="allPowers"
+          (deleteHeroClicked)="handleDelete(hero.id)"
+          (editHeroClicked)="editButtonClick(hero)"
+        ></app-hero-card>
+      } @empty {
+        <p>Não há heróis para serem exibidos.</p>
+      }
+    </div>
+  } @else {
+    <div class="loading-container">
+      <app-loading [large]="true"></app-loading>
+    </div>
+  }
   <app-hero-modal
     [showModal]="showModal"
     [heroData]="editingHero"

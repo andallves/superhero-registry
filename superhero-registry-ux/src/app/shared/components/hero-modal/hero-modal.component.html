@@ -8,13 +8,13 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="heroForm" class="form-content">
       <div class="form-grid">
         <div>
-          <label for="name">Nome do SuperHerói *</label>
-          <input type="text" id="name" name="name" formControlName="nome" required />
+          <label for="heroName">Nome do SuperHerói *</label>
+          <input type="text" id="heroName" name="heroName" formControlName="nomeHeroi" required />
         </div>
 
         <div>
-          <label for="heroName">Nome Real*</label>
-          <input type="text" id="heroName" name="heroName" formControlName="nomeHeroi" required />
+          <label for="name">Nome Real *</label>
+          <input type="text" id="name" name="name" formControlName="nome" required />
         </div>
       </div>
 
@@ -60,7 +60,7 @@
 
       <div class="form-buttons">
         <button type="button" (click)="handleCloseModal()">Cancelar</button>
-        <button type="submit">
+        <button type="submit" [disabled]="heroForm.invalid || isLoading">
           @if(isLoading) {
             <app-loading></app-loading>
           } @else {
