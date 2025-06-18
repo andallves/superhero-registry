@@ -6,6 +6,7 @@
     @for (hero of heroes; track $index) {
       <app-hero-card
         [hero]="hero"
+        [allPowers]="allPowers"
         (deleteHeroClicked)="deleteButtonClick(hero)"
         (editHeroClicked)="editButtonClick(hero)"
       ></app-hero-card>
@@ -16,7 +17,11 @@
   <app-hero-modal
     [showModal]="showModal"
     [heroData]="editingHero"
+    [isLoading]="isLoading"
+    [allPowers]="allPowers"
     (closeModal)="handleCloseModal()"
-    (saveHero)="handleSave($event)">
+    (saveHero)="handleSave($event)"
+    (updateHero)="handleUpdate($event)"
+  >
   </app-hero-modal>
 </main>

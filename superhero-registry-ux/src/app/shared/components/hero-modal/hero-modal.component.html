@@ -1,25 +1,25 @@
 <div *ngIf="showModal" class="modal-overlay">
   <div class="modal-container">
     <div class="modal-header">
-      <h2 class="modal-header__title">{{ heroData ? 'Edit Superhero' : 'Add New Superhero' }}</h2>
+      <h2 class="modal-header__title">{{ heroData ? 'Editar SuperHerói' : 'Adicionar Novo SuperHerói' }}</h2>
       <button (click)="handleCloseModal()" class="close-button">✕</button>
     </div>
 
     <form (ngSubmit)="onSubmit()" [formGroup]="heroForm" class="form-content">
       <div class="form-grid">
         <div>
-          <label for="name">Superhero Name *</label>
+          <label for="name">Nome do SuperHerói *</label>
           <input type="text" id="name" name="name" formControlName="nome" required />
         </div>
 
         <div>
-          <label for="heroName">Real Name *</label>
+          <label for="heroName">Nome Real*</label>
           <input type="text" id="heroName" name="heroName" formControlName="nomeHeroi" required />
         </div>
       </div>
 
       <div class="powers-container">
-        <label for="powers">Superpowers *</label>
+        <label for="powers">Superpoderes *</label>
         <div class="powers-container">
           <div class="tag-container">
             <div class="tag" *ngFor="let power of selectedPowers">
@@ -33,7 +33,8 @@
             [formControl]="powerInput"
             (keydown)="addPowerFromInput($event)"
             (focusin)="onFocusInput()"
-            placeholder="Type and press Enter or select..."
+            (blur)="onBlurInput()"
+            placeholder="Digite e pressione Enter ou selecione..."
           />
         </div>
         <ul class="suggestions" *ngIf="showSuggestions && filteredPowers.length">
@@ -48,19 +49,23 @@
       </div>
       <div>
         <label for="weight">Peso *</label>
-        <input type="text" name="weight" id="weight" formControlName="peso" required rows="4" />
+        <input type="text" name="weight" id="weight" formControlName="peso" required rows="2" />
       </div>
 
       <div>
         <label for="height">Altura *</label>
-        <input type="text" name="height" id="height" formControlName="altura" required rows="4" />
+        <input type="text" name="height" id="height" formControlName="altura" required rows="2" />
       </div>
 
 
       <div class="form-buttons">
-        <button type="button" (click)="handleCloseModal()">Cancel</button>
+        <button type="button" (click)="handleCloseModal()">Cancelar</button>
         <button type="submit">
-          {{ heroData ? 'Update Superhero' : 'Add Superhero' }}
+          @if(isLoading) {
+            <app-loading></app-loading>
+          } @else {
+            {{ heroData ? 'Atualizar' : 'Adicionar' }}
+          }
         </button>
       </div>
     </form>

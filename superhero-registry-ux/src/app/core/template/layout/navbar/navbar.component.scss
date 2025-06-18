@@ -11,6 +11,10 @@
   margin-bottom: 2rem;
   background-color: $whiteColor;
 
+  @media (min-width: 992px) {
+    padding: 2vw 6vw;
+  }
+
   &__brand-content {
     display: flex;
     justify-content: center;
@@ -27,7 +31,7 @@
     padding: 0.5rem;
     border-radius: 1rem;
     background: $primaryColor;
-    box-shadow: 0 0 1rem 0.4rem rgba(0,0,0,0.4) inset;
+    box-shadow: 0 0 1rem 0.4rem rgba(0,0,0,0.1) inset;
 
     &--image {
       width: 4rem;
@@ -64,6 +68,10 @@
     gap: 0.5rem;
     box-shadow: 0 0 0.1rem 0.1rem rgba(0,0,0,0.1);
     cursor: pointer;
+
+    @media (min-width: 992px) {
+      padding: 1.5rem 2rem;
+    }
 
     &--icon {
       width: 1.6rem;

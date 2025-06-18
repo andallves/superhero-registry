@@ -3,10 +3,14 @@
 .filter {
   width: 100%;
   padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__input {
-    width: 100%;
-    padding: 2rem;
+    width: 90%;
+    max-width: 50rem;
+    padding: 1.5rem;
     border-radius: 1rem;
     border: none;
     outline: none;
@@ -14,8 +18,12 @@
     background-color: $whiteColor;
     box-shadow: 0 0 0.1rem 0.1rem rgba(0,0,0,0.1);
 
+    &[placeholder] {
+      color: $grayColor;
+    }
+
     &:focus {
-      outline: .2rem solid $secondaryColor;
+      outline: .2rem solid $primaryColor;
     }
   }
 }

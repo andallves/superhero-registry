@@ -2,9 +2,15 @@ export interface Superhero {
   id: number;
   nome: string;
   nomeHeroi: string;
-  heroisSuperPoderes: Superpoder[];
+  heroisSuperPoderes: HeroisSuperPoderes[];
   altura: number;
   peso: number;
+}
+
+export interface HeroisSuperPoderes {
+  id?: number;
+  heroiId?: number;
+  superPoderId: number;
 }
 
 export interface Superpoder {

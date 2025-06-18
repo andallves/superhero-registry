@@ -10,8 +10,16 @@
 
   .cards-container {
     width: 100%;
-    display: flex;
     flex-wrap: wrap;
     padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr; /* padrão: 1 coluna */
+    gap: 1rem;
+
+    @media (min-width: 992px) {
+      padding: 2vw 6vw;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
   }
 }

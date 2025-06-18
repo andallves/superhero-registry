@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SuperHero.Application.DTO;
 using SuperHero.Domain.ValueObjects;
 using SuperHero.Infra.Context;
@@ -20,6 +21,7 @@ public class BuscarHeroisQueryHandler : IRequestHandler<BuscarHeroisQuery, Paged
     {
         var paged = await _repository
             .GetQueryable<Domain.Entities.Hero.Heroi>()
+            .Include(x => x.HeroisSuperPoderes)
             .AplicarFiltro(request)
             .AplicarOrdenacao(request)
             .Select(x => new HeroiDto
@@ -29,6 +31,7 @@ public class BuscarHeroisQueryHandler : IRequestHandler<BuscarHeroisQuery, Paged
                 NomeHeroi = x.NomeHeroi,
                 Altura = x.Altura,
                 Peso = x.Peso,
+                HeroisSuperPoderes = HeroiSuperPoderDto.From(x.HeroisSuperPoderes),
             })
             .PagedAsync(request, cancellationToken);
         

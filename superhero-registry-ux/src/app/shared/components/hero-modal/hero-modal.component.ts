@@ -2,6 +2,9 @@ import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/co
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
 import {Superhero, Superpoder} from '../../../core/types/hero';
+import {LoadingComponent} from '../loading/loading.component';
+import {SuperpowerService} from '../../../core/services/superpower.service';
+import {Response} from '../../../core/types/response';
 
 @Component({
   selector: 'app-hero-modal',
@@ -9,7 +12,8 @@ import {Superhero, Superpoder} from '../../../core/types/hero';
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    LoadingComponent
   ],
   templateUrl: './hero-modal.component.html',
   styleUrl: './hero-modal.component.scss'
@@ -17,27 +21,20 @@ import {Superhero, Superpoder} from '../../../core/types/hero';
 export class HeroModalComponent {
   @Input() showModal = true;
   @Input() heroData: Superhero | null = null;
+  @Input() isLoading: boolean = false;
+  @Input() allPowers: Superpoder[] = [];
   @Output() closeModal = new EventEmitter<void>();
-  @Output() saveHero = new EventEmitter<any>();
+  @Output() saveHero = new EventEmitter<Superhero>();
+  @Output() updateHero = new EventEmitter<Superhero>();
 
   powerInput = new FormControl('');
-  allPowers: Superpoder[] = [
-    { id: 1, nome: 'Flight', descricao: 'Fly through the sky' },
-    { id: 2, nome: 'Invisibility', descricao: 'Become invisible' },
-    { id: 3, nome: 'Telepathy', descricao: 'Read minds' },
-    { id: 4, nome: 'Super Strength', descricao: 'Lift heavy objects' },
-    { id: 5, nome: 'Speed', descricao: 'Move very fast' },
-    { id: 6, nome: 'Healing', descricao: 'Heal rapidly' },
-    { id: 7, nome: 'Laser Vision', descricao: 'Shoot lasers from eyes' },
-    { id: 8, nome: 'Teleportation', descricao: 'Instantly travel' },
-  ];
   filteredPowers: Superpoder[] = [];
   selectedPowers: Superpoder[] = [];
   showSuggestions = false;
 
   heroForm: FormGroup;
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder, private readonly superpowerService: SuperpowerService) {
     this.heroForm = this.fb.group({
       nome: ['', Validators.required],
       nomeHeroi: ['', Validators.required],
@@ -45,6 +42,7 @@ export class HeroModalComponent {
       peso: ['', Validators.required],
       altura: ['', Validators.required],
     });
+
   }
 
   ngOnInit(): void {
@@ -66,7 +64,9 @@ export class HeroModalComponent {
     if (changes['heroData']) {
       if (this.heroData) {
         this.heroForm.patchValue(this.heroData);
-        this.selectedPowers = this.heroData.heroisSuperPoderes || [];
+        this.selectedPowers = (this.heroData.heroisSuperPoderes || [])
+          .map(hsp => this.allPowers.find(p => p.id === hsp.superPoderId))
+          .filter((p): p is Superpoder => !!p);
       } else {
         this.heroForm.reset();
         this.selectedPowers = [];
@@ -79,10 +79,18 @@ export class HeroModalComponent {
   }
 
   onSubmit() {
+    this.isLoading = true;
     if (this.heroForm.valid) {
-      this.heroForm.patchValue({ heroisSuperPoderes: this.selectedPowers });
-      this.saveHero.emit(this.heroForm.value);
-      this.closeModal.emit();
+      this.heroForm.patchValue({
+        heroisSuperPoderes: this.selectedPowers.map(power => ({
+          superPoderId: power.id
+        }))
+      });
+      if (this.heroData) {
+        this.updateHero.emit(this.heroForm.value);
+      } else {
+        this.saveHero.emit(this.heroForm.value);
+      }
     }
   }
 

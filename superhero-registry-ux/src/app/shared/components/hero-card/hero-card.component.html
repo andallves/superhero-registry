@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card__header">
     <div class="card__id-wrapper">
-      <span class="card__id-wrapper id">ID: 1</span>
+      <span class="card__id-wrapper id">ID: {{ hero.id }}</span>
     </div>
     <div class="card__actions">
       <button
@@ -37,7 +37,7 @@
   </div>
   <div class="card__content">
     <div class="card__title-container">
-      <h3 class="card__title-container title">Superman</h3>
+      <h3 class="card__title-container title">{{ hero.nome }}</h3>
       <div class="card__title-container subtitle-container">
         <img
           class="card__profile"
@@ -46,15 +46,14 @@
           height="20"
           alt=""
         />
-        <span class="text">Clark Kent</span>
+        <span class="text">{{ hero.nomeHeroi }}</span>
       </div>
     </div>
-    <p class="card__description">The Man of Steel, protector of Metropolis and Earth.</p>
+
     <div class="card__powers">
       <span class="card__powers--title">Poderes</span>
       <div class="card__powers--container">
-        <span class="card__powers--item">Super Strength</span>
-        <span class="card__powers--item">Flight</span>
+        <span class="card__powers--item" *ngFor="let power of hero.heroisSuperPoderes">{{ power.superPoderId | superpoderNome: allPowers }}</span>
       </div>
     </div>
   </div>

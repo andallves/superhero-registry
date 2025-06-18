@@ -5,10 +5,11 @@ import {NavbarComponent} from './core/template/layout/navbar/navbar.component';
 import {FilterComponent} from './core/template/layout/filter/filter.component';
 import {HeroCardComponent} from './shared/components/hero-card/hero-card.component';
 import {HeroService} from './core/services/hero.service';
-import {Superhero} from './core/types/hero';
+import {Superhero, Superpoder} from './core/types/hero';
 import {ResultComponent} from './shared/components/result/result.component';
 import {Response} from './core/types/response';
 import {HeroModalComponent} from './shared/components/hero-modal/hero-modal.component';
+import {SuperpowerService} from './core/services/superpower.service';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,12 @@ import {HeroModalComponent} from './shared/components/hero-modal/hero-modal.comp
 })
 export class AppComponent {
   showModal = false;
+  isLoading = false;
   editingHero: any = null;
   heroes: Superhero[] = [];
+  allPowers: Superpoder[] = [];
 
-  constructor(private readonly heroService: HeroService) {}
+  constructor(private readonly heroService: HeroService, private readonly superpowerService: SuperpowerService) {}
 
   ngOnInit(): void {
     this.getAllHeroes();
@@ -31,11 +34,17 @@ export class AppComponent {
   private getAllHeroes(): void {
     const active = false;
     this.heroService.getAllHeroes().subscribe({
-      next: (data: Response) => {
+      next: (data: Response<Superhero>) => {
         console.log(data.resultado);
         this.heroes = data.resultado;
       },
       error: (erro) => console.log(erro),
+    });
+
+    this.superpowerService.getAllSuperpowers().subscribe({
+      next: (data: Response<Superpoder>) => {
+        this.allPowers = data.resultado;
+      }
     });
   }
 
@@ -54,13 +63,32 @@ export class AppComponent {
     this.heroes = this.heroes.filter(h => h.id !== hero.id);
   }
 
-  handleSave(hero: any) {
-    if (hero.id) {
-      this.heroes = this.heroes.map(h => h.id === hero.id ? hero : h);
-    } else {
-      hero.id = Date.now(); // simulação de ID
-      this.heroes.push(hero);
-    }
+  handleSave(hero: Superhero) {
+    this.isLoading = true;
+    this.heroService.saveHero(hero).subscribe( {
+      next: () => {
+        console.log("Salvo")
+      },
+      error: (error) => {},
+      complete: () => {
+        this.showModal = false;
+        this.isLoading = false;
+      }
+    })
+  }
+
+  handleUpdate(hero: Superhero) {
+    this.isLoading = true;
+    this.heroService.updateHero(hero.id, hero).subscribe( {
+      next: () => {
+
+      },
+      error: (error) => {},
+      complete: () => {
+        this.showModal = false;
+        this.isLoading = false;
+      }
+    })
   }
 
   handleCloseModal() {

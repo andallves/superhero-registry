@@ -1,12 +1,10 @@
-import {Superhero} from './hero';
-
-export interface Response {
+export interface Response<T> {
   haMaisPaginas: boolean;
   haPaginas: boolean;
   hePrimeiraPagina: boolean;
   heUltimaPagina: boolean;
   paginaAtual: number;
-  resultado: Superhero[];
+  resultado: T[];
   tamanhoDaPagina: number;
   totalDePaginas: number;
   totalDeResultados: number;

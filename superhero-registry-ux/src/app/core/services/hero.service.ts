@@ -13,24 +13,24 @@ export class HeroService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  saveHero(customerData: Superhero): Observable<Superhero> {
+  saveHero(heroData: Superhero): Observable<Superhero> {
     return this.httpClient.post<Superhero>(
       `${this.apiUrl}/hero`,
-      customerData
+      heroData
     );
   }
 
-  getAllHeroes(): Observable<Response> {
-    return this.httpClient.get<Response>(`${this.apiUrl}/hero`);
+  getAllHeroes(): Observable<Response<Superhero>> {
+    return this.httpClient.get<Response<Superhero>>(`${this.apiUrl}/hero`);
   }
 
   updateHero(
     customerId: number,
-    customerData: Partial<Superhero>
+    heroData: Partial<Superhero>
   ): Observable<Superhero> {
     return this.httpClient.put<Superhero>(
       `${this.apiUrl}/hero/${customerId}`,
-      customerData
+      heroData
     );
   }
 
@@ -40,5 +40,4 @@ export class HeroService {
       customerId
     );
   }
-
 }
