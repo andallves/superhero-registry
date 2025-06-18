@@ -175,6 +175,7 @@ src/
    ```bash
     Vá na camada de API, no UserSecrets e adicione
     "ConnectionStrings:POSTGRES": "Host=localhost;Port=5432;Database=SeuBanco;Username=postgres;Password=SuaSenha"
+    # Na pasta superhero-registry-api há o arquivo script.sql que contém o script do banco de dados
    
 3. Execute o projeto localmente:
    ```bash
